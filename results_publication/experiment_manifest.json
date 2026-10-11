@@ -1,0 +1,145 @@
+{
+  "created_utc": "2026-10-07T09:32:30.695394Z",
+  "notebook_version": "v4-publication",
+  "run_profile": "full",
+  "dataset": {
+    "name": "UNSW-NB15",
+    "source": "UNSW Canberra Cyber Range Lab (Moustafa & Slay, 2015), raw CSV parts 1-4",
+    "files": [
+      {
+        "file": "UNSW-NB15_1.csv",
+        "bytes": 168979718,
+        "sha256": "7d851bbeabd27894ce39c8e78835c73341fc946652fb7743b9eff193b55eb511",
+        "rows": 700001
+      },
+      {
+        "file": "UNSW-NB15_2.csv",
+        "bytes": 165221021,
+        "sha256": "6130ad02873cc6069ae695cf2844f2e8c2e9a9a1b7532dd82ab8f202757cacf8",
+        "rows": 700001
+      },
+      {
+        "file": "UNSW-NB15_3.csv",
+        "bytes": 154588103,
+        "sha256": "ae990a96c3dfcd425ce2801aadb1727a34d5e0ae6d8215dbcdae60dedfaef640",
+        "rows": 700001
+      },
+      {
+        "file": "UNSW-NB15_4.csv",
+        "bytes": 97588754,
+        "sha256": "cdf563692d51d405541dd659ddcdad9fa01f001f05fe9fc4b67f00ca12fbc96a",
+        "rows": 440044
+      }
+    ],
+    "rows_loaded": 2540047,
+    "invalid_rows": 0,
+    "duplicates": 513438,
+    "final_rows": 2026609,
+    "sessions": 2,
+    "session_gap_threshold_hours": 1.0,
+    "largest_observed_gap_hours": 623.9677777777778,
+    "duplicate_policy": "remove (features+label+family identical; earliest kept); with-duplicates ablation included",
+    "identifier_features": "excluded (srcip, dstip, sport, dsport)",
+    "timestamp_features": "excluded (Stime, Ltime)"
+  },
+  "split": {
+    "temporal": {
+      "train": 0.6,
+      "validation": 0.2,
+      "test": 0.2,
+      "order": "chronological by Stime"
+    },
+    "random_stratified": {
+      "train": 0.6,
+      "validation": 0.2,
+      "test": 0.2,
+      "stratified_by": "binary label",
+      "note": "random stratified baseline; not claimed to be IID"
+    },
+    "sensitivity": {
+      "50_25_25": [
+        0.5,
+        0.25,
+        0.25
+      ],
+      "70_10_20": [
+        0.7,
+        0.1,
+        0.2
+      ]
+    }
+  },
+  "seeds": [
+    42,
+    123,
+    456,
+    789,
+    101112
+  ],
+  "dirichlet_alphas": [
+    10,
+    1,
+    0.5,
+    0.1
+  ],
+  "clients": 5,
+  "partition_by": "family",
+  "model": {
+    "type": "MLPClassifier",
+    "hidden_layers": [
+      64,
+      32
+    ],
+    "activation": "relu",
+    "solver": "adam",
+    "l2": 0.0001,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "dtype": "float32"
+  },
+  "training": {
+    "max_train_rows": 300000,
+    "fedavg_rounds": 10,
+    "local_epochs": 1,
+    "centralized_matched_epochs": 10,
+    "centralized_es_reference_max_iter": 20,
+    "local_training": "fresh random init; MATCHED_EPOCHS epochs of partial_fit on the client's rows; no early stopping (same primitive as FedAvg clients)",
+    "local_aggregation": "local_macro (equal client weight) and local_weighted (weight = client training rows)",
+    "training_sample_protocol": "chronological holdout with seeded, label-stratified subsample of the historical training block (cap MAX_TRAIN_ROWS; None = whole block)",
+    "validation_use": "reserved and untouched (no model selection)",
+    "partition_protocol": "pure Dirichlet(alpha) label-skew over families; one draw per (seed, alpha); no minimum-size rejection",
+    "partition_min_rows_constraint": null,
+    "small_client_report_threshold": 200,
+    "min_class_rows_local": 50
+  },
+  "preprocessing": "Option A: federated training with shared feature preprocessing (fitted on capped train sample only)",
+  "unseen_families": [
+    "DoS",
+    "Reconnaissance"
+  ],
+  "alpha_for_ablations": 0.5,
+  "tracked_curve_seeds": [
+    42
+  ],
+  "software": {
+    "python": "3.13.16",
+    "sklearn": "1.6.1",
+    "pandas": "2.2.3",
+    "numpy": "2.1.3",
+    "scipy": "1.16.3",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39"
+  },
+  "verification_gates": {
+    "all_units_completed": true,
+    "seed_count_matches_profile": true,
+    "metrics_finite": true,
+    "identical_test_set_across_methods": true,
+    "preprocessing_fit_on_train_only": true,
+    "dedup_splits_have_no_train_test_duplicate_overlap": true,
+    "dedup_splits_have_no_index_overlap": true,
+    "fedavg_weights_finite": true,
+    "static_leakage_checks": true,
+    "fedavg_present_for_every_alpha": true
+  },
+  "total_runtime_minutes": 89.6
+}

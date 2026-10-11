@@ -1,0 +1,245 @@
+{
+  "static_checks": {
+    "no_ip_or_port_identifiers": true,
+    "no_timestamps_as_features": true,
+    "no_target_derived_features": true,
+    "no_session_or_bookkeeping_features": true
+  },
+  "preprocessing": "one preprocessor per seed fitted on the capped TRAIN sample only; validation/test never used to fit",
+  "validation_split_use": "reserved and untouched; no hyper-parameter or model selection performed",
+  "training_sample": "seeded sample of the historical training block, stratified by binary label, capped at MAX_TRAIN_ROWS; never reaches beyond the training boundary",
+  "split_overlap_audits": [
+    {
+      "split": "random_stratified",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 42.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 42.0
+    },
+    {
+      "split": "temporal_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 35191,
+      "val_test_dup": 47134,
+      "train_val_dup": 30423,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.06927225842010984,
+      "seed": 42.0
+    },
+    {
+      "split": "random_stratified_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 111239,
+      "val_test_dup": 95039,
+      "train_val_dup": 110690,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.21897009901379894,
+      "seed": 42.0
+    },
+    {
+      "split": "random_stratified",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 123.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 123.0
+    },
+    {
+      "split": "temporal_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 35191,
+      "val_test_dup": 47134,
+      "train_val_dup": 30423,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.06927225842010984,
+      "seed": 123.0
+    },
+    {
+      "split": "random_stratified_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 110516,
+      "val_test_dup": 94309,
+      "train_val_dup": 110949,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.2175468986830968,
+      "seed": 123.0
+    },
+    {
+      "split": "random_stratified",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 456.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 456.0
+    },
+    {
+      "split": "temporal_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 35191,
+      "val_test_dup": 47134,
+      "train_val_dup": 30423,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.06927225842010984,
+      "seed": 456.0
+    },
+    {
+      "split": "random_stratified_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 110821,
+      "val_test_dup": 94764,
+      "train_val_dup": 110489,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.21814728056534322,
+      "seed": 456.0
+    },
+    {
+      "split": "random_stratified",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 789.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 789.0
+    },
+    {
+      "split": "temporal_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 35191,
+      "val_test_dup": 47134,
+      "train_val_dup": 30423,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.06927225842010984,
+      "seed": 789.0
+    },
+    {
+      "split": "random_stratified_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 110802,
+      "val_test_dup": 94909,
+      "train_val_dup": 111074,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.21810987972677703,
+      "seed": 789.0
+    },
+    {
+      "split": "random_stratified",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 101112.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": 101112.0
+    },
+    {
+      "split": "temporal_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 35191,
+      "val_test_dup": 47134,
+      "train_val_dup": 30423,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.06927225842010984,
+      "seed": 101112.0
+    },
+    {
+      "split": "random_stratified_with_duplicates",
+      "context": "with_duplicates",
+      "train_test_dup": 110850,
+      "val_test_dup": 94681,
+      "train_val_dup": 111208,
+      "index_overlap": 0,
+      "test_rows": 508010,
+      "test_dup_rate": 0.2182043660557863,
+      "seed": 101112.0
+    },
+    {
+      "split": "temporal",
+      "context": "dedup",
+      "train_test_dup": 0,
+      "val_test_dup": 0,
+      "train_val_dup": 0,
+      "index_overlap": 0,
+      "test_rows": 405322,
+      "test_dup_rate": 0.0,
+      "seed": NaN
+    }
+  ],
+  "interpretation": "train_test_dup counts test rows with an identical features+label+family row in train. It must be 0 for the primary (deduplicated) dataset and is expected to be >0 in the with-duplicates ablation, where it quantifies how identical records crossing the evaluation boundary can make results optimistic (duplicates are not claimed to be leakage per se; repeated legitimate flows exist)."
+}

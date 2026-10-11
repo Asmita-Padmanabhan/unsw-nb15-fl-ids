@@ -1,0 +1,78 @@
+UNSW-NB15 CENTRALIZED vs LOCAL vs FEDERATED IDS - EXPERIMENT REPORT
+====================================================================
+
+Profile: full | seeds: [42, 123, 456, 789, 101112] | alphas: [10, 1, 0.5, 0.1] | clients: 5 (partition by family)
+Data lineage: 2,540,047 loaded -> 0 invalid -> 513,438 duplicates (20.21%) -> 2,026,609 analysed; 2 capture session(s); largest gap 624.0 h.
+Unseen-family experiments: ['DoS', 'Reconnaissance']
+
+MACRO-F1 (mean +/- SD over seeds)
+                        condition centralized_es(reference) centralized_matched       local_macro    local_weighted            fedavg
+                random_stratified         0.9399 +/- 0.0021   0.9358 +/- 0.0039                                                      
+                         temporal         0.9297 +/- 0.0011   0.9271 +/- 0.0035                                                      
+                     temporal_a10                             0.9271 +/- 0.0035 0.9217 +/- 0.0011 0.9220 +/- 0.0012 0.9269 +/- 0.0018
+                      temporal_a1                             0.9271 +/- 0.0035 0.9131 +/- 0.0053 0.9088 +/- 0.0085 0.9204 +/- 0.0071
+                    temporal_a0.5                             0.9271 +/- 0.0035 0.9036 +/- 0.0083 0.8912 +/- 0.0265 0.9012 +/- 0.0198
+                    temporal_a0.1                             0.9271 +/- 0.0035 0.8581 +/- 0.0642 0.8710 +/- 0.0147 0.8963 +/- 0.0209
+         temporal_with_duplicates                             0.9763 +/- 0.0003                                     0.9721 +/- 0.0076
+random_stratified_with_duplicates                             0.9791 +/- 0.0005                                                      
+                       unseen_DoS                             0.7138 +/- 0.0389 0.6786 +/- 0.0226 0.7306 +/- 0.0359 0.7527 +/- 0.0257
+            unseen_Reconnaissance                             0.7776 +/- 0.0148 0.7279 +/- 0.0099 0.7761 +/- 0.0080 0.8071 +/- 0.0130
+                   split_50_25_25                             0.9134 +/- 0.0068                                                      
+                   split_70_10_20                             0.9315 +/- 0.0018                                                      
+
+PAIRED COMPARISONS, Macro-F1 (A - B; primary: mean difference, 95% CI, Hedges g; secondary: t-test and Wilcoxon p, Holm-adjusted)
+                                                               comparison  n_pairs  mean_diff  ci95_low  ci95_high  hedges_g  p_value  p_holm  p_wilcoxon  p_wilcoxon_holm
+                                  alpha=10: FedAvg vs Local(macro-client)        5     0.0052    0.0027     0.0076    2.0819   0.0043  0.1042      0.0625              1.0
+                               alpha=10: FedAvg vs Local(sample-weighted)        5     0.0049    0.0022     0.0076    1.7792   0.0076  0.1674      0.0625              1.0
+                                 alpha=10: FedAvg vs Centralized(matched)        5    -0.0002   -0.0029     0.0025   -0.0663   0.8620  1.0000      1.0000              1.0
+                    alpha=10: Local(macro-client) vs Centralized(matched)        5    -0.0053   -0.0097    -0.0010   -1.2172   0.0272  0.4824      0.0625              1.0
+                 alpha=10: Local(sample-weighted) vs Centralized(matched)        5    -0.0050   -0.0096    -0.0005   -1.1106   0.0361  0.5411      0.1250              1.0
+                                   alpha=1: FedAvg vs Local(macro-client)        5     0.0073    0.0002     0.0144    1.0159   0.0469  0.5793      0.1250              1.0
+                                alpha=1: FedAvg vs Local(sample-weighted)        5     0.0116    0.0067     0.0165    2.3456   0.0028  0.0700      0.0625              1.0
+                                  alpha=1: FedAvg vs Centralized(matched)        5    -0.0067   -0.0137     0.0003   -0.9463   0.0573  0.5793      0.0625              1.0
+                     alpha=1: Local(macro-client) vs Centralized(matched)        5    -0.0139   -0.0185    -0.0093   -3.0179   0.0011  0.0303      0.0625              1.0
+                  alpha=1: Local(sample-weighted) vs Centralized(matched)        5    -0.0182   -0.0256    -0.0108   -2.4544   0.0024  0.0615      0.0625              1.0
+                                 alpha=0.5: FedAvg vs Local(macro-client)        5    -0.0024   -0.0236     0.0189   -0.1104   0.7730  1.0000      0.8125              1.0
+                              alpha=0.5: FedAvg vs Local(sample-weighted)        5     0.0100   -0.0078     0.0278    0.5600   0.1926  0.9629      0.1875              1.0
+                                alpha=0.5: FedAvg vs Centralized(matched)        5    -0.0258   -0.0502    -0.0015   -1.0530   0.0423  0.5793      0.0625              1.0
+                   alpha=0.5: Local(macro-client) vs Centralized(matched)        5    -0.0235   -0.0365    -0.0104   -1.7810   0.0076  0.1674      0.0625              1.0
+                alpha=0.5: Local(sample-weighted) vs Centralized(matched)        5    -0.0358   -0.0694    -0.0023   -1.0605   0.0414  0.5793      0.0625              1.0
+                                 alpha=0.1: FedAvg vs Local(macro-client)        5     0.0382   -0.0371     0.1136    0.5040   0.2317  0.9629      0.3125              1.0
+                              alpha=0.1: FedAvg vs Local(sample-weighted)        5     0.0253   -0.0067     0.0573    0.7865   0.0928  0.6498      0.1875              1.0
+                                alpha=0.1: FedAvg vs Centralized(matched)        5    -0.0307   -0.0543    -0.0071   -1.2938   0.0224  0.4487      0.0625              1.0
+                   alpha=0.1: Local(macro-client) vs Centralized(matched)        5    -0.0689   -0.1450     0.0071   -0.9003   0.0656  0.5793      0.0625              1.0
+                alpha=0.1: Local(sample-weighted) vs Centralized(matched)        5    -0.0560   -0.0730    -0.0391   -3.2870   0.0008  0.0234      0.0625              1.0
+                                             FedAvg alpha=10 vs alpha=0.1        5     0.0305    0.0062     0.0549    1.2445   0.0254  0.4824      0.0625              1.0
+                Random stratified vs Temporal (centralized_es, reference)        5     0.0101    0.0084     0.0119    5.7559   0.0001  0.0027      0.0625              1.0
+                      Random stratified vs Temporal (centralized_matched)        5     0.0088    0.0079     0.0096    9.8590   0.0000  0.0003      0.0625              1.0
+Duplicates kept vs removed, random stratified split (centralized_matched)        5     0.0433    0.0386     0.0480    9.1585   0.0000  0.0004      0.0625              1.0
+               Duplicates kept vs removed, temporal (centralized_matched)        5     0.0492    0.0449     0.0536   11.2792   0.0000  0.0002      0.0625              1.0
+                  Duplicates kept vs removed, temporal (FedAvg alpha=0.5)        5     0.0709    0.0446     0.0972    2.6744   0.0017  0.0462      0.0625              1.0
+                          [aux] Unseen DoS: FedAvg vs Local(macro-client)        5     0.0742    0.0366     0.1117    1.9640   0.0054  0.1234      0.0625              1.0
+                       [aux] Unseen DoS: FedAvg vs Local(sample-weighted)        5     0.0221   -0.0098     0.0540    0.6880   0.1268  0.7610      0.1875              1.0
+                         [aux] Unseen DoS: FedAvg vs Centralized(matched)        5     0.0390   -0.0353     0.1132    0.5212   0.2189  0.9629      0.3125              1.0
+               [aux] Unseen Reconnaissance: FedAvg vs Local(macro-client)        5     0.0792    0.0534     0.1050    3.0476   0.0010  0.0302      0.0625              1.0
+            [aux] Unseen Reconnaissance: FedAvg vs Local(sample-weighted)        5     0.0310    0.0060     0.0559    1.2331   0.0261  0.4824      0.0625              1.0
+              [aux] Unseen Reconnaissance: FedAvg vs Centralized(matched)        5     0.0295   -0.0016     0.0605    0.9435   0.0578  0.5793      0.0625              1.0
+                         Split 50_25_25 vs 60/20/20 (centralized_matched)        5    -0.0136   -0.0252    -0.0020   -1.1677   0.0310  0.4956      0.0625              1.0
+                         Split 70_10_20 vs 60/20/20 (centralized_matched)        5     0.0044    0.0002     0.0087    1.0302   0.0450  0.5793      0.0625              1.0
+(smallest attainable exact two-sided Wilcoxon p with n=5 pairs: 0.0625)
+
+VERIFICATION GATES: all_units_completed=True, seed_count_matches_profile=True, metrics_finite=True, identical_test_set_across_methods=True, preprocessing_fit_on_train_only=True, dedup_splits_have_no_train_test_duplicate_overlap=True, dedup_splits_have_no_index_overlap=True, fedavg_weights_finite=True, static_leakage_checks=True, fedavg_present_for_every_alpha=True
+
+LIMITATIONS THAT MUST APPEAR IN THE PAPER
+- Preprocessing is shared (fitted on pooled training sample); only model training is federated.
+- Client heterogeneity is simulated with a Dirichlet label-skew over traffic families, not measured from real tenants.
+- UNSW-NB15 raw data come from two capture days; the temporal split therefore mixes a day-level shift with within-day drift.
+- Hyper-parameters were fixed a priori, not tuned; the validation partition is reserved and untouched (no model selection).
+- Random stratified split is a baseline, not an IID guarantee: related flows/campaigns can fall on both sides.
+- Training-paradigm claims are restricted to the budget-matched methods (centralized_matched, local, fedavg); centralized_es is a reference only.
+- Temporal protocol = chronological holdout with a seeded, label-stratified subsample of the historical training block.
+- Dirichlet partitions are single pure draws (no size rejection): empty/tiny clients occur at small alpha and are reported; local_macro and local_weighted answer different questions (per-node vs traffic-level).
+- Per-family results are detection recall of a binary detector; per-family precision/F1 are not defined and are not reported.
+- Exact duplicates can make evaluation optimistic when identical records cross the evaluation boundary; they are not asserted to be leakage per se.
+- FedAvg clients restart Adam every round whereas local/centralized models keep optimizer state across epochs.
+- Not a privacy-preserving FL pipeline: preprocessing statistics are computed centrally.
+- With 5 seeds, paired tests have limited power (exact Wilcoxon cannot go below p = 0.0625); interpret effect sizes and intervals, not p-values alone.
+- The unseen-family experiment is AUXILIARY: it measures how a binary detector handles a held-out attack family, NOT zero-day detection.
+- One dataset, one architecture (MLP, chosen deliberately to isolate the training paradigm) and one aggregation rule (FedAvg): conclusions hold for the evaluated MLP only. No novelty claim is made until the literature check is done.
