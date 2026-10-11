@@ -110,23 +110,7 @@ The run enforces ten verification gates, all of which passed: all work units com
 
 Results hold for one dataset (UNSW-NB15), one architecture (a 64-32 MLP), one aggregation rule (FedAvg), five clients, ten rounds and five seeds. The experiments do not measure concept drift, demonstrate privacy preservation or support zero-day detection claims. See Section 6 of the paper for the full list.
 
-## Citation
 
-If you use this code or these results, please cite the paper:
-
-```
-Abyaz Ashiq and Asmita Padmanabhan,
-"Centralized, Local and Federated Intrusion Detection on UNSW-NB15 under Temporal Evaluation
-and Client Heterogeneity: A Budget-Matched, Audited Empirical Study," [venue, year, DOI to be added].
-```
-
-Archived release: https://doi.org/10.5281/zenodo.XXXXXXX *(replace after creating the Zenodo release)*
-
-Please also cite the original dataset:
-
-N. Moustafa and J. Slay, "UNSW-NB15: A comprehensive data set for network intrusion detection systems (UNSW-NB15 network data set)," in Proc. Military Communications and Information Systems Conference (MilCIS), 2015, pp. 1-6.
-
-## License
 
 Code is released under the MIT License (see `LICENSE`). The UNSW-NB15 data is not redistributed here and remains subject to its own terms on the official UNSW page.
 
